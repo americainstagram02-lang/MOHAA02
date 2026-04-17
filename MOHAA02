@@ -1,50 +1,29 @@
-# -*- coding: utf-8 -*-
-# MOHA-02 ULTIMATE SYSTEM V4.5
-# PART 1: CORE, SECURITY, AND INTERFACE
-# DEVELOPER: @ktk9k | CHANNEL: @m_oha0_2b
-
 import os
 import sys
 import time
-import json
-import uuid
-import random
-import datetime
-import threading
-import webbrowser
 import requests
-from concurrent.futures import ThreadPoolExecutor
-import os, sys, time, requests, uuid, random, urllib3
-# إخفاء التحذيرات الحمراء
+import urllib3
+
+# 1. حل مشكلة النصوص الحمراء (إخفاء التحذيرات)
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-# دالة فتح القناة المحدثة لتعمل في تيرمكس بدون مشاكل
-def open_channel():
-    os.system("am start -a android.intent.action.VIEW -d https://t.me/m_oha0_2b > /dev/null 2>&1")
+# --- ألوان الواجهة ---
+G = '\033[1;92m'
+W = '\033[1;97m'
+X = '\033[1;93m'
 
-# --- إعدادات الألوان النيون (Cyber Style) ---
-Z = '\033[1;31m' # أحمر
-X = '\033[1;33m' # أصفر (ذهبي)
-F = '\033[2;32m' # أخضر
-A = '\033[2;34m' # أزرق
-C = '\033[2;35m' # وردي
-S = '\033[2;36m' # سمائي
-W = '\x1b[1;37m' # أبيض
-G = '\033[1;92m' # أخضر فاتح
-
-# --- دوال المساعدة للواجهة ---
 def clear():
-    if os.name == 'nt':
-        os.system('cls')
-    else:
-        os.system('clear')
+    os.system('clear')
 
-def linex():
-    print(f'{G}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
+# 2. حل مشكلة فتح القناة وخطأ المسافات (السطر 64)
+def open_channel():
+    print(f" {G}[!] {W}OPENING TELEGRAM CHANNEL...")
+    # استخدام أمر أندرويد المباشر لفتح التطبيق بدون مشاكل
+    os.system("am start -a android.intent.action.VIEW -d https://t.me/m_oha0_2b > /dev/null 2>&1")
+    time.sleep(2)
 
 def moha_banner():
     clear()
-    # بانر MOHA-02 بنظام النيون
     print(f"""
 {G} ██████╗██╗  ██╗██╗     ███████╗███████╗
 {G}██╔════╝██║  ██║██║     ██╔════╝██╔════╝
@@ -52,29 +31,17 @@ def moha_banner():
 {X}██║     ██╔══██║██║     ██╔══╝  ██╔══╝  
 {G}╚██████╗██║  ██║███████╗███████╗██║     
 {X}     M O H A - 0 2   U L T I M A T E   V 4.5
-{W}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-{G}[+] DEV     : @ktk9k (Moha Al-Shalfawi)
-{G}[+] ROLE    : ELECTRONIC MARKETER & DEVELOPER
-{X}[+] CHANNEL : https://t.me/m_oha0_2b
 {W}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━""")
 
-# --- نظام فتح القناة التلقائي (الذي طلبته) ---
+# تشغيل البوابة
+if __name__ == "__main__":
+    open_channel()
+    moha_banner()
+    # أكمل باقي الأجزاء هنا...
 
-        # حل بديل إذا فشل المتصفح في Termux
-        os.system("termux-open-url https://t.me/m_oha0_2b")
-    time.sleep(3)
 
-# --- نظام الحماية والتحقق (Anti-Dump & Security) ---
-def security_check():
-    # كود بسيط لمنع سحب الملفات وحماية الـ API
-    try:
-        # يمكنك إضافة نظام مفاتيح (Keys) هنا لاحقاً
-        pass
-    except Exception as e:
-        print(f" {Z}[!] SECURITY ALERT: {e}")
-        sys.exit()
 
-# --- دالة البداية للجزء الأول ---
+دالة--- دالة البداية للجزء الأول ---
 def init_system():
     moha_banner()
     open_channel()
