@@ -742,7 +742,7 @@ def PRINT_HIT_HEADER(uid, pwd, status):
     print(f"{color} ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━{W}")
 # ━━━━━━━━━━━━━━ [ الجزء العاشر: نظام التحديث التلقائي والربط مع GitHub ] ━━━━━━━━━━━━━━
 
-def CHECK_FOR_UPDATES():
+#def CHECK_FOR_UPDATES():
     """
     نظام ذكي للتحقق من إصدار الأداة وربطها بمستودع GitHub الخاص بك.
     يضمن أنك تعمل دائماً بأحدث التقنيات يا موحا.
@@ -1395,7 +1395,7 @@ def INITIALIZE_ALL_SYSTEMS():
         INITIALIZE_RESULT_FOLDERS()
         
         # 3. التحقق من التحديثات (من الجزء العاشر)
-        CHECK_FOR_UPDATES()
+       # CHECK_FOR_UPDATES()
         
         # 4. تحميل قاعدة البيانات (بروكسيات + هيدرز) (من الجزء الثاني)
         print(f"{Y} [*] LOADING SYSTEM CORE DATA...")
