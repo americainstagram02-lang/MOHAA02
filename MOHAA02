@@ -557,7 +557,8 @@ def single_target_service():
     # البدء بالفحص (نرسل الآيدي مع قائمة الباسووردات المخصصة للمحرك)
     with ThreadPoolExecutor(max_workers=threads) as moha_pool:
 
-            if len(pwd) < 6: continue
+            if len(pwd) < 6: pass
+
             # نرسل كل باسوورد كأنه مهمة منفصلة لضمان السرعة
             moha_pool.submit(CORE_LOGIN_ENGINE, target_uid, pwd, "SINGLE_CRACK")
 
