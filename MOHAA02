@@ -15,8 +15,6 @@ from datetime import datetime
 from platform import platform
 from urllib.parse import quote
 import webbrowser
-# كود فتح قناة تليجرام تلقائياً
-webbrowser.open("https://t.me/N_JF_A5")
 
 
 try:
