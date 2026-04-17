@@ -14,6 +14,13 @@ import threading
 import webbrowser
 import requests
 from concurrent.futures import ThreadPoolExecutor
+import os, sys, time, requests, uuid, random, urllib3
+# إخفاء التحذيرات الحمراء
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+# دالة فتح القناة المحدثة لتعمل في تيرمكس بدون مشاكل
+def open_channel():
+    os.system("am start -a android.intent.action.VIEW -d https://t.me/m_oha0_2b > /dev/null 2>&1")
 
 # --- إعدادات الألوان النيون (Cyber Style) ---
 Z = '\033[1;31m' # أحمر
@@ -52,11 +59,7 @@ def moha_banner():
 {W}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━""")
 
 # --- نظام فتح القناة التلقائي (الذي طلبته) ---
-def open_channel():
-    print(f" {F}[!] {W}OPENING TELEGRAM CHANNEL... PLEASE WAIT")
-    try:
-        webbrowser.open("https://t.me/m_oha0_2b")
-    except:
+
         # حل بديل إذا فشل المتصفح في Termux
         os.system("termux-open-url https://t.me/m_oha0_2b")
     time.sleep(3)
