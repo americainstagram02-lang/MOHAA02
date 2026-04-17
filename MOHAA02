@@ -1,4 +1,7 @@
 import os, re, time, uuid, hashlib, random, string, requests, sys, json, urllib, webbrowser
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
 from bs4 import BeautifulSoup
 from random import randint as rr
 from concurrent.futures import ThreadPoolExecutor as moha_speed
