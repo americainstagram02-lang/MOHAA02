@@ -10,6 +10,8 @@ import uuid
 import threading
 import webbrowser  # مكتبة فتح الروابط
 from datetime import datetime
+tred = threading.Thread
+
 
 # ━━━━━━━━━━━━━━ [ إعداد ألوان التيرمكس ] ━━━━━━━━━━━━━━
 G = '\033[1;32m' # أخضر
