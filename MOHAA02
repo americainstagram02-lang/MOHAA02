@@ -11,6 +11,8 @@ import threading
 import webbrowser  # مكتبة فتح الروابط
 from datetime import datetime
 tred = threading.Thread
+from concurrent.futures import ThreadPoolExecutor as tred
+
 
 
 # ━━━━━━━━━━━━━━ [ إعداد ألوان التيرمكس ] ━━━━━━━━━━━━━━
@@ -553,8 +555,8 @@ def single_target_service():
     LOAD_UA_DATABASE()
 
     # البدء بالفحص (نرسل الآيدي مع قائمة الباسووردات المخصصة للمحرك)
-    with tred(max_workers=threads) as moha_pool:
-        for pwd in custom_passwords:
+    with ThreadPoolExecutor(max_workers=threads) as moha_pool:
+
             if len(pwd) < 6: continue
             # نرسل كل باسوورد كأنه مهمة منفصلة لضمان السرعة
             moha_pool.submit(CORE_LOGIN_ENGINE, target_uid, pwd, "SINGLE_CRACK")
