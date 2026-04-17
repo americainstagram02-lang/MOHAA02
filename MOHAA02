@@ -10,8 +10,10 @@ import uuid
 import threading
 import webbrowser  # مكتبة فتح الروابط
 from datetime import datetime
-tred = threading.Thread
-from concurrent.futures import ThreadPoolExecutor as tred
+
+import threading
+from concurrent.futures import ThreadPoolExecutor # السطر 14 الصحيح
+tred = ThreadPoolExecutor # هذا السطر اختياري إذا كنت تستخدم اسم tred بالأسفل
 
 
 
